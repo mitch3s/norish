@@ -2,6 +2,7 @@
 
 import type { GroceryDto, RecurringGroceryDto } from "@/types";
 import type { GroceryGroup, GroupedGrocerySource } from "@/lib/grocery-grouping";
+import type { ReactNode } from "react";
 
 import { memo, useState, useCallback } from "react";
 import { Checkbox } from "@heroui/react";
@@ -35,6 +36,7 @@ interface GroupedGroceryItemProps {
   onToggleGroup: (ids: string[], isDone: boolean) => void;
   isFirst?: boolean;
   isLast?: boolean;
+  dragHandle?: ReactNode;
 }
 
 /**
@@ -51,6 +53,7 @@ function GroupedGroceryItemComponent({
   onToggleGroup,
   isFirst = false,
   isLast = false,
+  dragHandle,
 }: GroupedGroceryItemProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const t = useTranslations("groceries.item");
@@ -100,10 +103,12 @@ function GroupedGroceryItemComponent({
     <div className={`bg-content1 ${roundedClass}`}>
       {/* Main row */}
       <div
-        className={`flex items-center gap-3 px-4 py-3 pl-10 ${
+        className={`flex items-center gap-3 px-4 py-3 ${
           group.sources.length > 1 ? "min-h-[72px]" : "min-h-14"
         }`}
       >
+        <div className="flex h-8 w-8 items-center justify-center">{dragHandle}</div>
+
         {/* Group checkbox - toggles all items */}
         <Checkbox
           isIndeterminate={group.anyDone && !group.allDone}
