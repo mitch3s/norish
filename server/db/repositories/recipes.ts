@@ -400,6 +400,7 @@ export async function listRecipes(
         userId: true,
         name: true,
         description: true,
+        notes: true,
         url: true,
         image: true,
         servings: true,
@@ -441,6 +442,7 @@ export async function listRecipes(
       userId: r.userId,
       name: r.name,
       description: r.description ?? null,
+      notes: r.notes ?? null,
       url: r.url ?? null,
       image: r.image ?? null,
       servings: r.servings ?? 1,
@@ -485,6 +487,7 @@ export async function dashboardRecipe(id: string): Promise<RecipeDashboardDTO | 
       userId: true,
       name: true,
       description: true,
+      notes: true,
       url: true,
       image: true,
       servings: true,
@@ -523,6 +526,7 @@ export async function dashboardRecipe(id: string): Promise<RecipeDashboardDTO | 
     userId: r.userId,
     name: r.name,
     description: r.description ?? null,
+    notes: r.notes ?? null,
     url: r.url ?? null,
     image: r.image ?? null,
     servings: r.servings ?? null,
@@ -563,6 +567,7 @@ export async function createRecipeWithRefs(
     name: stripHtmlTags(payload.name),
     userId,
     description: payload.description ? stripHtmlTags(payload.description) : null,
+    notes: payload.notes ?? null,
     url: payload.url ?? null,
     image: payload.image ?? null,
     servings: payload.servings ?? 1,
@@ -671,6 +676,7 @@ export async function getRecipeFull(id: string): Promise<FullRecipeDTO | null> {
       userId: true,
       name: true,
       description: true,
+      notes: true,
       url: true,
       image: true,
       servings: true,
@@ -740,6 +746,7 @@ export async function getRecipeFull(id: string): Promise<FullRecipeDTO | null> {
     userId: full.userId,
     name: full.name,
     description: full.description ?? null,
+    notes: full.notes ?? null,
     url: full.url ?? null,
     image: full.image ?? null,
     servings: full.servings ?? 1,
@@ -849,6 +856,7 @@ export async function updateRecipeWithRefs(
     if (payload.name !== undefined) updateData.name = stripHtmlTags(payload.name);
     if (payload.description !== undefined)
       updateData.description = payload.description ? stripHtmlTags(payload.description) : null;
+    if (payload.notes !== undefined) updateData.notes = payload.notes;
     if (payload.url !== undefined) updateData.url = payload.url;
     if (payload.image !== undefined) updateData.image = payload.image;
     if (payload.servings !== undefined) updateData.servings = payload.servings;
